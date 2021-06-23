@@ -1,0 +1,264 @@
+<html>
+<head>
+<title>Symulator Covid-19 - 444449</title>
+<meta charset='UTF-8'>
+<style>
+.przycisk{
+	padding:5px; height:30px; background-color:#cfc7c9; text-align:center; 
+	border-radius: 5px 5px 15px 15px; opacity:1; font-size:25px; box-shadow: 2px 2px;
+}
+.przycisk:hover{ opacity:0.8; }
+.stan{
+	width:47%; height:40px; position:relative; float:left; background-color:#cfc7c9; text-align:center; 
+	border-radius: 15px 15px 15px 15px; opacity:1; font-size:30px; box-shadow: 2px 2px; margin-left:2%; margin-bottom:8px;
+	transition: background-color 2s;
+}
+.stan:hover{ opacity:0.7; }
+#tab{ opacity:0; }
+#up{ opacity:0; margin-top:-20px; transition: opacity 2s, margin 2s; }
+input::-webkit-input-placeholder {
+     color: white;
+     opacity: 0.4;
+	 font-family: 'Exo', sans-serif;
+}
+#mPrzejscia{ font-family: Arial, Helvetica, sans-serif; text-align:center; font-size:14px; width:100%; }
+</style>
+<link href='http://fonts.googleapis.com/css?family=Amatic+SC&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+</head>
+<body style="width: 70%; margin: 0 auto; background-color:#f0eeef; color: #958386; text-decoration: none; font-family: 'Amatic SC', sans-serif; cursor:default;">
+<div id="up">
+<p style="margin-top:20px; text-align:center; font-size:40px;margin-bottom:0px">Łańcuchy Markowa na podstawie Covid-19</p>
+<p style="margin-top:2px; text-align:center; font-size:25px; margin-bottom:5px">Wprowadź wiek zmiennej losowej</p>
+<input id="wiek" type="number" value=0 min=0 max=110 style="letter-spacing: 2px; width:70%; margin-left:15%; padding: 5px; text-align:center; background-color:#c4babc; color: #f3f1f2; font-size:20px; outline: none; border-radius: 30px 30px 5px 5px; border-color:#f3f1f2">
+<br>
+<p style="text-align:center; font-size:25px; margin-bottom:5px;margin-top:5px;">Czy zmienna losowa posiada znaczące dla Covid-19 choroby współistniejące?</p>
+<div style='text-align:center;'>
+<input id="tak" type="radio" name='choroby' value=1>
+<label for="tak" style='font-size:20px;'>Tak</label>
+<input id="nie" type="radio" name='choroby' value=0 checked style="margin-left:1%;">
+<label for="nie" style='font-size:20px;'>Nie</label>
+</div>
+<div id='przyciski' style='margin-top:5px;margin-bottom:12px;width:100%;position:relative;float:left;text-align:center;'></div>
+<div id='stany' style='position:relative;float:left;width:30%;' onmouseleave='odwyswietl()'>
+<span class="stan" id='s1' onmouseover='wyswietl(0)'>1</span>
+<span class="stan" id='s2' onmouseover='wyswietl(1)'>2</span>
+<span class="stan" id='s3' onmouseover='wyswietl(2)'>3</span>
+<span class="stan" id='s4' onmouseover='wyswietl(3)'>4</span>
+<span class="stan" id='s5' onmouseover='wyswietl(4)'>5</span>
+<span class="stan" id='s6' onmouseover='wyswietl(5)'>6</span>
+<span class="stan" id='s7' onmouseover='wyswietl(6)'>7</span>
+<span class="stan" id='s8' onmouseover='wyswietl(7)'>8</span>
+<span class="stan" id='s9' onmouseover='wyswietl(8)'>9</span>
+<span class="stan" id='s10' onmouseover='wyswietl(9)'>10</span>
+<span class="stan" id='s11' onmouseover='wyswietl(10)'>11</span>
+</div>
+<div id='info' style='position:relative;float:left;width:68%; padding-left:15px; text-align:center;'>
+<span style='font-size:30px;' id='nazwaStanu'></span><br>
+<span style='font-size:23px;' id='daneStanu' ></span>
+</div>
+</body>
+<script>
+document.ondragstart = function() { return false }
+document.onselectstart = function() { return false }
+przyciski = document.getElementById('przyciski');
+wiek = document.getElementById("wiek");
+choroby = document.getElementById("tak");
+choroby2 = document.getElementById("nie");
+nazwaStanu = document.getElementById("nazwaStanu");
+daneStanu = document.getElementById("daneStanu");
+info = document.getElementById("info");
+stanyDiv = document.getElementById("stany");
+
+idAn = 0;
+mPrzejsciaString = "<span id='check' style='margin-top:5px;margin-bottom:20px;' onclick='kreujMacierz()' class='przycisk'>Macierz przejścia</span>";
+rozkladString = "<span id='checkR' style='margin-top:5px;margin-bottom:20px;margin-left:10px;' onclick='pokazRozklad()' class='przycisk'>Rozkład stacjonarny</span>";
+symulujString = "<span id='symuluj' style='margin-top:5px;margin-bottom:20px;margin-left:10px;' onclick='symuluj()' class='przycisk'>Symuluj</span>";
+sSymulujString = "<span id='sSymuluj' style='margin-top:5px;margin-bottom:20px;margin-left:10px;' onclick='stopSymuluj()' class='przycisk'>Zatrzymaj symulację</span>";
+mPrzejscia = [];
+stany = ["Wolny od Covid-19", "Bezobjawowy", "Gorączka", "Duszności", "Gorączka i duszności", "Wyzdrowiały po Covid-19", "Bezobjawowy po wyzdrowieniu", "Gorączka po wyzdrowieniu", "Duszności po wyzdrowieniu", "Gorączka i duszności po wyzdrowieniu", "Martwy"];
+// 0 - Zdrowy, 1 - Bezobjawowy, 2 - Gorączka, 3 - Duszności, 4 - Gorączka i duszności, 5 - Wyzdrowiały, 6 - Bezobjawowy*, 7 - Gorączka*, 8 - Duszności*, 9 - Gorączka i duszności*, 10 - Martwy
+
+function kreujMacierz(){
+	let pMartwy = 0.001 + 0.07*(1-(Math.log(110-parseInt(wiek.value)+0.001)/Math.log(110)));
+	let mnoznik = 1;
+	if(choroby.checked){
+		pMartwy += 0.02 + 0.1*pMartwy;
+		mnoznik = 10;
+	}
+	let pObjawy = [0.6, 0.2, 0.15, 0.05];
+	let pSmiertelnosc = [0.001*mnoznik, 0.007*mnoznik, 0.01*mnoznik, 0.014*mnoznik];
+	let pChoroba = 0.10;
+	let pRozwoj = 0.15;
+	let pSmiertelnoscPo = [0.0005*mnoznik, 0.004*mnoznik, 0.008*mnoznik, 0.011*mnoznik];
+	let pChorobaPo = 0.07;
+	let pRozwojPo = 0.10;
+	
+	mPrzejscia[0] = [1-(pMartwy+pChoroba*(1-pMartwy)), (1-pMartwy)*pObjawy[0]*pChoroba, (1-pMartwy)*pObjawy[1]*pChoroba, (1-pMartwy)*pObjawy[2]*pChoroba, (1-pMartwy)*pObjawy[3]*pChoroba, 0, 0, 0, 0, 0, pMartwy];
+	mPrzejscia[1] = [0, (1-(pMartwy+(1-pMartwy)*pSmiertelnosc[0]))*pObjawy[0]*pRozwoj, (1-(pMartwy+(1-pMartwy)*pSmiertelnosc[0]))*pObjawy[1]*pRozwoj, (1-(pMartwy+(1-pMartwy)*pSmiertelnosc[0]))*pObjawy[2]*pRozwoj, (1-(pMartwy+(1-pMartwy)*pSmiertelnosc[0]))*pObjawy[3]*pRozwoj, 1-(pMartwy+(1-pMartwy)*pSmiertelnosc[0]+pRozwoj*(1-(pMartwy+(1-pMartwy)*pSmiertelnosc[0]))), 0, 0, 0, 0, pMartwy+(1-pMartwy)*pSmiertelnosc[0]];
+	mPrzejscia[2] = [0, 0, (1-(pMartwy+(1-pMartwy)*pSmiertelnosc[1]))*(1-pObjawy[3])*pRozwoj, 0, (1-(pMartwy+(1-pMartwy)*pSmiertelnosc[1]))*pObjawy[3]*pRozwoj, 1-(pMartwy+(1-pMartwy)*pSmiertelnosc[1]+pRozwoj*(1-(pMartwy+(1-pMartwy)*pSmiertelnosc[1]))), 0, 0, 0, 0, pMartwy+(1-pMartwy)*pSmiertelnosc[1]];
+	mPrzejscia[3] = [0, 0, 0, (1-(pMartwy+(1-pMartwy)*pSmiertelnosc[2]))*(1-pObjawy[3])*pRozwoj, (1-(pMartwy+(1-pMartwy)*pSmiertelnosc[2]))*pObjawy[3]*pRozwoj, 1-(pMartwy+(1-pMartwy)*pSmiertelnosc[2]+pRozwoj*(1-(pMartwy+(1-pMartwy)*pSmiertelnosc[2]))), 0, 0, 0, 0, pMartwy+(1-pMartwy)*pSmiertelnosc[2]];
+	mPrzejscia[4] = [0, 0, 0, 0, (1-(pMartwy+(1-pMartwy)*pSmiertelnosc[3]))*pRozwoj, 1-(pMartwy+(1-pMartwy)*pSmiertelnosc[3]+pRozwoj*(1-(pMartwy+(1-pMartwy)*pSmiertelnosc[3]))), 0, 0, 0, 0, pMartwy+(1-pMartwy)*pSmiertelnosc[3]];
+	mPrzejscia[5] = [0, 0, 0, 0, 0, 1-(pMartwy+pChorobaPo*(1-pMartwy)), (1-pMartwy)*pObjawy[0]*pChorobaPo, (1-pMartwy)*pObjawy[1]*pChorobaPo, (1-pMartwy)*pObjawy[2]*pChorobaPo, (1-pMartwy)*pObjawy[3]*pChorobaPo, pMartwy];
+	mPrzejscia[6] = [0, 0, 0, 0, 0, 1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[0]+pRozwojPo*(1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[0]))), (1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[0]))*pObjawy[0]*pRozwojPo, (1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[0]))*pObjawy[1]*pRozwojPo, (1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[0]))*pObjawy[2]*pRozwojPo, (1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[0]))*pObjawy[3]*pRozwojPo, pMartwy+(1-pMartwy)*pSmiertelnoscPo[0]];
+	mPrzejscia[7] = [0, 0, 0, 0, 0, 1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[1]+pRozwojPo*(1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[1]))), 0, (1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[1]))*(1-pObjawy[3])*pRozwojPo, 0, (1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[1]))*pObjawy[3]*pRozwojPo, pMartwy+(1-pMartwy)*pSmiertelnoscPo[1]];
+	mPrzejscia[8] = [0, 0, 0, 0, 0, 1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[2]+pRozwojPo*(1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[2]))), 0, 0, (1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[2]))*(1-pObjawy[3])*pRozwojPo, (1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[2]))*pObjawy[3]*pRozwojPo, pMartwy+(1-pMartwy)*pSmiertelnoscPo[2]];
+	mPrzejscia[9] = [0, 0, 0, 0, 0, 1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[3]+pRozwojPo*(1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[3]))), 0, 0, 0, (1-(pMartwy+(1-pMartwy)*pSmiertelnoscPo[3]))*pRozwojPo, pMartwy+(1-pMartwy)*pSmiertelnoscPo[3]];
+	mPrzejscia[10] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+	let mTable = document.createElement("table");
+	mTable.id = 'mPrzejscia';
+	for(let i = 0; i<11; i++){
+		let mTr = document.createElement("tr");
+		mTr.id = 'm'+i;
+		for(let j = 0; j<11; j++){
+			let mTd = document.createElement("td");
+			if(Math.round(mPrzejscia[i][j]) == mPrzejscia[i][j]) mTd.innerHTML = mPrzejscia[i][j];
+			else mTd.innerHTML = mPrzejscia[i][j].toFixed(3);
+			if(j==0)mTd.style.cssText = "border-left: 1px solid #786c6e;";
+			if(j==10)mTd.style.cssText = "border-right: 1px solid #786c6e;";
+			if(i==0&&j==0)mTd.style.cssText += "border-top: 1px solid #786c6e;";
+			if(i==0&&j==10)mTd.style.cssText += "border-top: 1px solid #786c6e;";
+			if(i==10&&j==10)mTd.style.cssText += "border-bottom: 1px solid #786c6e;";
+			if(i==10&&j==0)mTd.style.cssText += "border-bottom: 1px solid #786c6e;";
+			mTr.appendChild(mTd);
+		}
+		mTable.appendChild(mTr);
+	}
+	nazwaStanu.innerHTML = '';
+	nazwaStanu.appendChild(mTable);
+	daneStanu.innerHTML = "";
+	
+	// Wyszukiwanie rozkładu stacjonarnego poprzez algorytm, kończący się wektorem zerowym.
+	/*
+	let rownania = [];
+	let wektor = [];
+	for(let i=0;i<11;i++){
+		rownania[i]=[];
+		for(let j=0;j<11;j++){
+			if(j!=i) rownania[i][j] = mPrzejscia[j][i];
+			else rownania[i][j] = (mPrzejscia[j][i]-1);
+		}
+	}
+	for(let i=0;i<11;i++){
+		wektor[i] = 0;
+	}
+	alert(math.lusolve(rownania,wektor)); */
+	
+	przyciski.innerHTML = mPrzejsciaString+rozkladString+symulujString;
+}
+
+function wyswietl(stan){
+	nazwaStanu.innerHTML = (stan+1) + " - " + stany[stan];
+	if(mPrzejscia.length == 0){
+		daneStanu.innerHTML = "Wprowadź wymagane informacje dla zmiennej losowej";
+	}else{
+		daneStanu.innerHTML = "Prawdopodobieństwa przejścia do innych stanów:<br>";
+		for(let i = 0; i<11; i++){
+			if(mPrzejscia[stan][i]!=0) daneStanu.innerHTML += "<span id='st"+i+"'>"+(i+1) + " - " + stany[i] + " [" + (mPrzejscia[stan][i]*100).toFixed(3) + "%]</span><br>";
+		}
+	}
+}
+function odwyswietl(){
+	nazwaStanu.innerHTML = '';
+	daneStanu.innerHTML = '';
+}
+
+function pokazRozklad(){
+	nazwaStanu.innerHTML = "";
+	daneStanu.innerHTML = "Z macierzy przejścia (Π) możemy zauważyć, że z dowolnego stanu istnieje prawdopodobieństwo przejścia do stanu 'Martwy', przy czym stan 'Martwy' jako jedyny odwołuje się jedynie do samego siebie. Tym samym wnioskujemy, że rozkład stacjonarny ma postać (0,0,0,0,0,0,0,0,0,0,1). Dowód:<br>(0,0,0,0,0,0,0,0,0,0,1)Π = (0,0,0,0,0,0,0,0,0,0,1)<br>";
+	daneStanu.innerHTML += "Jako ciekawostka, w tle zostało przeprowadzonych 1 000 symulacji błądzenia po tym łańcuchu, każdy przez 1 000 kroków (1 000 tygodni), tak wygląda rozkład prawdopodobieństwa na podstawie końcowych stanów symulacji:<br>";
+	daneStanu.innerHTML += "<span style='font-family: Arial, Helvetica, sans-serif; '>(" + symulujRozklad() + ")</span>";
+}
+
+function symulujRozklad(){
+	let polozenie = 0;
+	let wystapienia = [0,0,0,0,0,0,0,0,0,0,0];
+	for(let i=0;i<1000;i++){
+		for(let j=0;j<1000;j++){
+			polozenie = symulujPrzejscie(polozenie);
+		}
+		wystapienia[polozenie]++;
+	}
+	for(let i = 0; i<11; i++){
+		wystapienia[i] = wystapienia[i]/1000;
+		if(Math.round(wystapienia[i])!=wystapienia[i]) wystapienia[i] = wystapienia[i].toFixed(3);
+	}
+	return wystapienia.join(', ')
+}
+
+function symulujPrzejscie(n){
+	let los = Math.random();
+	let sumaLos = 0;
+	for(let i = 0; i<11; i++){
+		if(mPrzejscia[n][i]!=0){
+			sumaLos += mPrzejscia[n][i];
+			if(los<sumaLos) return i;
+		}
+	}
+}
+
+function symuluj(){
+	przyciski.innerHTML = sSymulujString;
+	wiek.disabled = true;
+	choroby.disabled = true;
+	choroby2.disabled = true;
+	info.style.opacity = 0;
+	stanyDiv.onmouseleave = '';
+	
+	for(let i = 0; i<11; i++){
+		document.getElementById("s"+(i+1)).onmouseover = '';
+	}
+	odwyswietl();
+	idAn = setTimeout(function(){symulujKrok(0,0)}, 5);
+}
+
+poprzedniWybrany = -1;
+function symulujKrok(stan,tyg){
+	info.style.transition = "opacity 1s";
+	document.getElementById("s"+(stan+1)).style.backgroundColor = '#a4c489';
+	if(poprzedniWybrany!=-1 && poprzedniWybrany != stan) document.getElementById("s"+(poprzedniWybrany+1)).style.backgroundColor = '#cfc7c9';
+	poprzedniWybrany = stan;
+	wyswietl(stan);
+	daneStanu.innerHTML += "Tydzień: " + tyg;
+	info.style.opacity = 1;
+	for(let i = 0; i<11; i++){
+		if(document.getElementById("st"+i) != null){
+			document.getElementById("st"+i).style.transition = "opacity 1s, color 2s";
+		}
+	}
+	idAn = setTimeout(function(){symulujWybor(symulujPrzejscie(stan),tyg+1)}, 1000);
+}
+
+function symulujWybor(stan,tyg){
+	for(let i = 0; i<11; i++){
+		if(i != stan && document.getElementById("st"+i) != null) document.getElementById("st"+i).style.opacity = 0;
+	}
+	document.getElementById("st"+stan).style.color = '#a4c489'
+	idAn = setTimeout(function(){symulujWyblak(stan,tyg)}, 1000);
+}
+
+function symulujWyblak(stan,tyg){
+	info.style.opacity = 0;
+	idAn = setTimeout(function(){symulujKrok(stan,tyg)}, 1000);
+}
+
+function stopSymuluj(){
+	clearTimeout(idAn);
+	przyciski.innerHTML = mPrzejsciaString+rozkladString+symulujString;
+	wiek.disabled = false;
+	choroby.disabled = false;
+	choroby2.disabled = false;
+	info.style.transition = "";
+	info.style.opacity = 1;
+	stanyDiv.onmouseleave = function(){ odwyswietl() };
+	for(let i = 0; i<11; i++){
+		document.getElementById("s"+(i+1)).onmouseover = function(){ wyswietl(i) };
+		document.getElementById("s"+(i+1)).style.backgroundColor = '#cfc7c9';
+	}
+	odwyswietl();
+}
+
+setTimeout(function(){ document.getElementById("up").style.opacity=1; document.getElementById("up").style.marginTop=0;
+	przyciski.innerHTML=mPrzejsciaString}, 10);
+</script>
+</html>
