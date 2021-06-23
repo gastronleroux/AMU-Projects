@@ -1,4 +1,7 @@
-setTimeout(function(){ document.getElementById("up").style.opacity=1; document.getElementById("up").style.marginTop=0; }, 10);
+setTimeout(function(){
+	document.body.style.opacity=1;
+	document.body.style.marginTop=0;
+}, 10);
 document.ondragstart = function() { return false }
 document.onselectstart = function() { return false }
 formula = document.getElementById("formula");

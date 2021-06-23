@@ -1,3 +1,9 @@
+window.onload = function (){
+	for(let i = 1; i <=5; i++){
+		document.getElementById("val"+i).innerHTML = lang[currLang]["wrp"]["val"+i];
+	}
+}
+
 document.ondragstart = function() { return false }
 document.onselectstart = function() { return false }
 przyciski = document.getElementById('przyciski');
@@ -10,13 +16,14 @@ info = document.getElementById("info");
 stanyDiv = document.getElementById("stany");
 
 idAn = 0;
-mPrzejsciaString = "<span id='check' class='przycisk1' onclick='kreujMacierz()' >Macierz przejścia</span>";
-rozkladString = "<span id='checkR' class='przycisk1 mleft' onclick='pokazRozklad()' >Rozkład stacjonarny</span>";
-symulujString = "<span id='symuluj' class='przycisk1 mleft' onclick='symuluj()' >Symuluj</span>";
-sSymulujString = "<span id='sSymuluj' class='przycisk1 mleft' onclick='stopSymuluj()' >Zatrzymaj symulację</span>";
+mPrzejsciaString = "<span id='check' class='przycisk1' onclick='kreujMacierz()' >"+lang[currLang]["wrp"]["val6"]+"</span>";
+rozkladString = "<span id='checkR' class='przycisk1 mleft' onclick='pokazRozklad()' >"+lang[currLang]["wrp"]["val7"]+"</span>";
+symulujString = "<span id='symuluj' class='przycisk1 mleft' onclick='symuluj()' >"+lang[currLang]["wrp"]["val8"]+"</span>";
+sSymulujString = "<span id='sSymuluj' class='przycisk1 mleft' onclick='stopSymuluj()' >"+lang[currLang]["wrp"]["val9"]+"</span>";
 mPrzejscia = [];
-stany = ["Wolny od Covid-19", "Bezobjawowy", "Gorączka", "Duszności", "Gorączka i duszności", "Wyzdrowiały po Covid-19", "Bezobjawowy po wyzdrowieniu", "Gorączka po wyzdrowieniu", "Duszności po wyzdrowieniu", "Gorączka i duszności po wyzdrowieniu", "Martwy"];
+stany = Array.apply(null, new Array(11)).map((el, i) => lang[currLang]["wrp"]["val"+(++i+9)])
 // 0 - Zdrowy, 1 - Bezobjawowy, 2 - Gorączka, 3 - Duszności, 4 - Gorączka i duszności, 5 - Wyzdrowiały, 6 - Bezobjawowy*, 7 - Gorączka*, 8 - Duszności*, 9 - Gorączka i duszności*, 10 - Martwy
+
 
 function kreujMacierz(){
 	let pMartwy = 0.001 + 0.07*(1-(Math.log(110-parseInt(wiek.value)+0.001)/Math.log(110)));
@@ -89,9 +96,9 @@ function kreujMacierz(){
 function wyswietl(stan){
 	nazwaStanu.innerHTML = (stan+1) + " - " + stany[stan];
 	if(mPrzejscia.length == 0){
-		daneStanu.innerHTML = "Wprowadź wymagane informacje dla zmiennej losowej";
+		daneStanu.innerHTML = lang[currLang]["wrp"]["val21"];
 	}else{
-		daneStanu.innerHTML = "Prawdopodobieństwa przejścia do innych stanów:<br>";
+		daneStanu.innerHTML = lang[currLang]["wrp"]["val22"]+":<br>";
 		for(let i = 0; i<11; i++){
 			if(mPrzejscia[stan][i]!=0) daneStanu.innerHTML += "<span id='st"+i+"'>"+(i+1) + " - " + stany[i] + " [" + (mPrzejscia[stan][i]*100).toFixed(3) + "%]</span><br>";
 		}
@@ -104,8 +111,8 @@ function odwyswietl(){
 
 function pokazRozklad(){
 	nazwaStanu.innerHTML = "";
-	daneStanu.innerHTML = "Z macierzy przejścia (Π) możemy zauważyć, że z dowolnego stanu istnieje prawdopodobieństwo przejścia do stanu 'Martwy', przy czym stan 'Martwy' jako jedyny odwołuje się jedynie do samego siebie. Tym samym wnioskujemy, że rozkład stacjonarny ma postać (0,0,0,0,0,0,0,0,0,0,1). Dowód:<br>(0,0,0,0,0,0,0,0,0,0,1)Π = (0,0,0,0,0,0,0,0,0,0,1)<br>";
-	daneStanu.innerHTML += "Jako ciekawostka, w tle zostało przeprowadzonych 1 000 symulacji błądzenia po tym łańcuchu, każdy przez 1 000 kroków (1 000 tygodni), tak wygląda rozkład prawdopodobieństwa na podstawie końcowych stanów symulacji:<br>";
+	daneStanu.innerHTML = lang[currLang]["wrp"]["val23"] + ":<br>(0,0,0,0,0,0,0,0,0,0,1)Π = (0,0,0,0,0,0,0,0,0,0,1)<br>";
+	daneStanu.innerHTML += lang[currLang]["wrp"]["val24"] + ":<br>";
 	daneStanu.innerHTML += "<span style='font-family: Arial, Helvetica, sans-serif; '>(" + symulujRozklad() + ")</span>";
 }
 
@@ -158,7 +165,7 @@ function symulujKrok(stan,tyg){
 	if(poprzedniWybrany!=-1 && poprzedniWybrany != stan) document.getElementById("s"+(poprzedniWybrany+1)).style.backgroundColor = '#cfc7c9';
 	poprzedniWybrany = stan;
 	wyswietl(stan);
-	daneStanu.innerHTML += "Tydzień: " + tyg;
+	daneStanu.innerHTML += lang[currLang]["wrp"]["val25"]+": " + tyg;
 	info.style.opacity = 1;
 	for(let i = 0; i<11; i++){
 		if(document.getElementById("st"+i) != null){
@@ -197,5 +204,8 @@ function stopSymuluj(){
 	odwyswietl();
 }
 
-setTimeout(function(){ document.getElementById("up").style.opacity=1; document.getElementById("up").style.marginTop=0;
-	przyciski.innerHTML=mPrzejsciaString}, 10);
+setTimeout(function(){
+	document.body.style.opacity=1;
+	document.body.style.marginTop=0;
+	przyciski.innerHTML=mPrzejsciaString
+}, 10);

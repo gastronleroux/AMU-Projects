@@ -1,12 +1,16 @@
 body{
-    width: 70%; 
+    width: 100%;
+    height:auto;
+    opacity: 0;
     margin: 0 auto; 
+    margin-top: -20px;
     background-color:#f0eeef;
     color: #958386; 
     text-decoration: none; 
-    font-family: 'Amatic SC', 
-    sans-serif; 
-    cursor:default;
+    font-family: 'Amatic SC', sans-serif; 
+    cursor: default;
+    position: relative;
+    transition: opacity 2s, margin 2s;
 }
 .przycisk1{
 	padding:7px;
@@ -80,9 +84,10 @@ body{
     opacity:0;
 }
 #up{
-    opacity:0; 
-    margin-top:-20px;
-    transition: opacity 2s, margin 2s;
+    width:70%;
+    margin-left: 15%;
+    position:relative;
+    opacity:1;
 }
 input::-webkit-input-placeholder {
      color: white;
@@ -101,7 +106,8 @@ input[type=number] {
     font-family: Arial, Helvetica, sans-serif;
     text-align:center;
     font-size:14px;
-    width:100%; }
+    width:100%;
+}
 
 #wiek{
     letter-spacing: 2px;
@@ -190,13 +196,13 @@ input[type=number] {
     border-color:#f3f1f2;
 }
 .very-big-title{
-    margin-top:150px;
+    padding-top:150px;
     text-align:center;
     font-size:50px;
-    margin-bottom:5px
+    margin-bottom:5px;
 }
 .big-title{
-    margin-top:20px;
+    padding-top:5px;
     text-align:center;
     font-size:40px;
     margin-bottom:5px;
@@ -206,7 +212,7 @@ input[type=number] {
     font-family: 'Exo', sans-serif;
 }
 .small-title{
-    margin-top:5px;
+    padding-top:5px;
     text-align:center;
     font-size:18px;
     margin-bottom:5px;
@@ -218,4 +224,23 @@ input[type=number] {
 }
 .input-holder > label{
     font-size:25px;
+}
+
+.flags{
+    width:100%;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    text-align:right;
+}
+.flags > img{
+    margin-top: 20px;
+    margin-right: 20px;
+    width:40px;
+    height:auto;
+    opacity: 0.6;
+}
+.flags > img:hover{
+    opacity: 0.9;
 }
