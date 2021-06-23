@@ -1,0 +1,221 @@
+body{
+    width: 70%; 
+    margin: 0 auto; 
+    background-color:#f0eeef;
+    color: #958386; 
+    text-decoration: none; 
+    font-family: 'Amatic SC', 
+    sans-serif; 
+    cursor:default;
+}
+.przycisk1{
+	padding:7px;
+    height:30px;
+    background-color:#cfc7c9;
+    text-align:center; 
+	border-radius: 5px 5px 15px 15px;
+    opacity:1;
+    font-size:18px;
+    box-shadow: 2px 2px;
+    margin-bottom:20px;
+    font-family: 'Exo', sans-serif;
+}
+.przycisk1.mleft{
+    margin-left: 10px;
+}
+.przycisk2{
+	width:9.5%;
+    height:45px;
+    position:relative;
+    float:left;
+    background-color:#cfc7c9;
+    text-align:center; 
+	border-radius: 5px 5px 15px 15px;
+    opacity:1;
+    font-size:30px;
+    box-shadow: 2px 2px;
+    margin-left:0.42%;
+}
+.przycisk3{
+	width:16%;
+    height:45px;
+    position:relative;
+    float:left;
+    background-color:#cfc7c9;
+    text-align:center; 
+	border-radius: 5px 5px 30px 30px;
+    opacity:1;
+    font-size:30px;
+    box-shadow: 2px 2px;
+    margin-left:42%;
+	margin-top:10px;
+}
+.przycisk1:hover, .przycisk2:hover, .przycisk3:hover{
+    opacity:0.8;
+}
+.stan{
+	width:47%;
+    height:40px;
+    position:relative;
+    float:left;
+    background-color:#cfc7c9;
+    text-align:center; 
+	border-radius: 15px 15px 15px 15px;
+    opacity:1;
+    font-size:30px;
+    box-shadow: 2px 2px;
+    margin-left:2%;
+    margin-bottom:8px;
+	transition: background-color 2s;
+}
+.stan:hover{
+    opacity:0.7;
+}
+#tab{
+    font-family: 'Exo', sans-serif;
+    position:relative;
+    float:left;
+    width:100%;
+    margin-top:20px; 
+    opacity:0;
+}
+#up{
+    opacity:0; 
+    margin-top:-20px;
+    transition: opacity 2s, margin 2s;
+}
+input::-webkit-input-placeholder {
+     color: white;
+     opacity: 0.4;
+	 font-family: 'Exo', sans-serif;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+#mPrzejscia{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align:center;
+    font-size:14px;
+    width:100%; }
+
+#wiek{
+    letter-spacing: 2px;
+    width:20%;
+    margin-left:40%;
+    padding: 5px;
+    text-align:center;
+    background-color:#c4babc;
+    color: #f3f1f2;
+    font-size:20px;
+    outline: none;
+    border-radius: 30px 30px 5px 5px;
+    border-color:#f3f1f2;
+}
+#przyciski{
+    margin-top:5px;
+    margin-bottom:12px;
+    width:100%;
+    position:relative;
+    float:left;
+    text-align:center;
+}
+#stany{
+    position:relative;
+    float:left;
+    width:30%;
+}
+#info{
+    position:relative;
+    float:left;
+    width:68%;
+    padding-left:15px;
+    text-align:center;
+    font-family: 'Exo', sans-serif;
+}
+#formula{
+    letter-spacing: 3px;
+    margin-bottom:4px;
+    width:100%;
+    padding: 5px;
+    text-align:center;
+    background-color:#c4babc;
+    color: #f3f1f2;
+    font-size:20px;
+    outline: none;
+    border-radius: 30px 30px 5px 5px;
+    border-color:#f3f1f2;
+}
+#p_od{
+    letter-spacing: 2px;
+    width:13%;
+    margin-left:36.5%;
+    padding: 5px;
+    text-align:center;
+    background-color:#c4babc;
+    color: #f3f1f2;
+    font-size:20px;
+    outline: none;
+    border-radius: 30px 10px 5px 5px;
+    border-color:#f3f1f2;
+}
+#p_do{
+    letter-spacing: 2px;
+    width:13%;
+    margin-left:1%;
+    padding: 5px;
+    text-align:center;
+    background-color:#c4babc;
+    color: #f3f1f2;
+    font-size:20px;
+    outline: none;
+    border-radius: 10px 30px 5px 5px;
+    border-color:#f3f1f2;
+}
+#epsilon{
+    letter-spacing: 2px;
+    width:16%;
+    margin-left:42%;
+    padding: 5px;
+    text-align:center;
+    background-color:#c4babc;
+    color: #f3f1f2;
+    font-size:20px;
+    outline: none;
+    border-radius: 30px 30px 5px 5px;
+    border-color:#f3f1f2;
+}
+.very-big-title{
+    margin-top:150px;
+    text-align:center;
+    font-size:50px;
+    margin-bottom:5px
+}
+.big-title{
+    margin-top:20px;
+    text-align:center;
+    font-size:40px;
+    margin-bottom:5px;
+}
+.big-title.smaller{
+    font-size:23px;
+    font-family: 'Exo', sans-serif;
+}
+.small-title{
+    margin-top:5px;
+    text-align:center;
+    font-size:18px;
+    margin-bottom:5px;
+    font-family: 'Exo', sans-serif;
+}
+.input-holder{
+    text-align:center;
+    margin-bottom:10px;
+}
+.input-holder > label{
+    font-size:20px;
+}

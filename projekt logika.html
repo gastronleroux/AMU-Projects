@@ -1,30 +1,27 @@
 <html>
 <head>
-<title>Tautologia</title>
+<title>AMU PS - Tautologia</title>
 <meta charset='UTF-8'>
-<style>
-.przycisk{
-	width:9.5%; height:45px; position:relative; float:left; background-color:#cfc7c9; text-align:center; 
-	border-radius: 5px 5px 15px 15px; opacity:1; font-size:30px; box-shadow: 2px 2px; margin-left:0.42%;
-}
-.przycisk:hover{ opacity:0.8; }
-#tab{ opacity:0; }
-#up{ opacity:0; margin-top:-20px; transition: opacity 2s, margin 2s; }
-</style>
 <link href='http://fonts.googleapis.com/css?family=Amatic+SC&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+<link href="src/style.css" rel="stylesheet">
 </head>
-<body style="width: 70%; margin: 0 auto; background-color:#f0eeef; color: #958386; text-decoration: none; font-family: 'Amatic SC', sans-serif; cursor:default;">
+<body>
 <div id="up">
-<p style="margin-top:150px; text-align:center; font-size:50px; margin-bottom:5px">Sprawdź, czy twoje zdanie jest tautologią</p>
-<input id="formula" type="text" style="letter-spacing: 3px; margin-bottom:4px; pointer-events:none; width:100%; padding: 5px; text-align:center; background-color:#c4babc; color: #f3f1f2; font-size:20px; outline: none; border-radius: 30px 30px 5px 5px">
-<span id="p" class="przycisk">p</span> <span id="q" class="przycisk">q</span>
-<span id="neg" class="przycisk">¬</span> <span id="kon" class="przycisk">∧</span> <span id="alt" class="przycisk">∨</span>
-<span id="imp" class="przycisk">⇒</span> <span id="row" class="przycisk">⇔</span> 
-<span id="otworz" class="przycisk">(</span> <span id="zamknij" class="przycisk">)</span> 
-<span id="check" class="przycisk">✓</span>
+<p class="very-big-title">Sprawdź, czy twoje zdanie jest tautologią</p>
+<input id="formula" type="text" style="pointer-events:none;">
+<span id="p" class="przycisk2">p</span>
+<span id="q" class="przycisk2">q</span>
+<span id="neg" class="przycisk2">¬</span>
+<span id="kon" class="przycisk2">∧</span>
+<span id="alt" class="przycisk2">∨</span>
+<span id="imp" class="przycisk2">⇒</span>
+<span id="row" class="przycisk2">⇔</span> 
+<span id="otworz" class="przycisk2">(</span>
+<span id="zamknij" class="przycisk2">)</span> 
+<span id="check" class="przycisk2">✓</span>
 </div>
-<div id="tab" style="font-family: 'Exo', sans-serif; position:relative; float:left; width:100%; margin-top:15px; "></div>
+<div id="tab"></div>
 </body>
 <script>
 setTimeout(function(){ document.getElementById("up").style.opacity=1; document.getElementById("up").style.marginTop=0; }, 10);

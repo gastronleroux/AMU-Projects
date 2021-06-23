@@ -1,46 +1,25 @@
 <html>
 <head>
-<title>Symulator Covid-19 - 444449</title>
+<title>AMU PS - Symulator Covid-19</title>
 <meta charset='UTF-8'>
-<style>
-.przycisk{
-	padding:5px; height:30px; background-color:#cfc7c9; text-align:center; 
-	border-radius: 5px 5px 15px 15px; opacity:1; font-size:25px; box-shadow: 2px 2px;
-}
-.przycisk:hover{ opacity:0.8; }
-.stan{
-	width:47%; height:40px; position:relative; float:left; background-color:#cfc7c9; text-align:center; 
-	border-radius: 15px 15px 15px 15px; opacity:1; font-size:30px; box-shadow: 2px 2px; margin-left:2%; margin-bottom:8px;
-	transition: background-color 2s;
-}
-.stan:hover{ opacity:0.7; }
-#tab{ opacity:0; }
-#up{ opacity:0; margin-top:-20px; transition: opacity 2s, margin 2s; }
-input::-webkit-input-placeholder {
-     color: white;
-     opacity: 0.4;
-	 font-family: 'Exo', sans-serif;
-}
-#mPrzejscia{ font-family: Arial, Helvetica, sans-serif; text-align:center; font-size:14px; width:100%; }
-</style>
 <link href='http://fonts.googleapis.com/css?family=Amatic+SC&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+<link href="src/style.css" rel="stylesheet">
 </head>
-<body style="width: 70%; margin: 0 auto; background-color:#f0eeef; color: #958386; text-decoration: none; font-family: 'Amatic SC', sans-serif; cursor:default;">
+<body>
 <div id="up">
-<p style="margin-top:20px; text-align:center; font-size:40px;margin-bottom:0px">Łańcuchy Markowa na podstawie Covid-19</p>
-<p style="margin-top:2px; text-align:center; font-size:25px; margin-bottom:5px">Wprowadź wiek zmiennej losowej</p>
-<input id="wiek" type="number" value=0 min=0 max=110 style="letter-spacing: 2px; width:70%; margin-left:15%; padding: 5px; text-align:center; background-color:#c4babc; color: #f3f1f2; font-size:20px; outline: none; border-radius: 30px 30px 5px 5px; border-color:#f3f1f2">
-<br>
-<p style="text-align:center; font-size:25px; margin-bottom:5px;margin-top:5px;">Czy zmienna losowa posiada znaczące dla Covid-19 choroby współistniejące?</p>
-<div style='text-align:center;'>
+<p class="big-title">Łańcuchy Markowa na podstawie Covid-19</p>
+<p class="small-title">Wprowadź wiek zmiennej losowej</p>
+<input id="wiek" type="number" value=0 min=0 max=110>
+<p class="small-title">Czy zmienna losowa posiada znaczące dla Covid-19 choroby współistniejące?</p>
+<div class="input-holder" >
 <input id="tak" type="radio" name='choroby' value=1>
-<label for="tak" style='font-size:20px;'>Tak</label>
+<label for="tak">Tak</label>
 <input id="nie" type="radio" name='choroby' value=0 checked style="margin-left:1%;">
-<label for="nie" style='font-size:20px;'>Nie</label>
+<label for="nie">Nie</label>
 </div>
-<div id='przyciski' style='margin-top:5px;margin-bottom:12px;width:100%;position:relative;float:left;text-align:center;'></div>
-<div id='stany' style='position:relative;float:left;width:30%;' onmouseleave='odwyswietl()'>
+<div id='przyciski'></div>
+<div id='stany' onmouseleave='odwyswietl()'>
 <span class="stan" id='s1' onmouseover='wyswietl(0)'>1</span>
 <span class="stan" id='s2' onmouseover='wyswietl(1)'>2</span>
 <span class="stan" id='s3' onmouseover='wyswietl(2)'>3</span>
@@ -53,9 +32,9 @@ input::-webkit-input-placeholder {
 <span class="stan" id='s10' onmouseover='wyswietl(9)'>10</span>
 <span class="stan" id='s11' onmouseover='wyswietl(10)'>11</span>
 </div>
-<div id='info' style='position:relative;float:left;width:68%; padding-left:15px; text-align:center;'>
-<span style='font-size:30px;' id='nazwaStanu'></span><br>
-<span style='font-size:23px;' id='daneStanu' ></span>
+<div id='info'>
+<span style='font-size:23px;' id='nazwaStanu'></span><br>
+<span style='font-size:17px;' id='daneStanu' ></span>
 </div>
 </body>
 <script>
@@ -71,10 +50,10 @@ info = document.getElementById("info");
 stanyDiv = document.getElementById("stany");
 
 idAn = 0;
-mPrzejsciaString = "<span id='check' style='margin-top:5px;margin-bottom:20px;' onclick='kreujMacierz()' class='przycisk'>Macierz przejścia</span>";
-rozkladString = "<span id='checkR' style='margin-top:5px;margin-bottom:20px;margin-left:10px;' onclick='pokazRozklad()' class='przycisk'>Rozkład stacjonarny</span>";
-symulujString = "<span id='symuluj' style='margin-top:5px;margin-bottom:20px;margin-left:10px;' onclick='symuluj()' class='przycisk'>Symuluj</span>";
-sSymulujString = "<span id='sSymuluj' style='margin-top:5px;margin-bottom:20px;margin-left:10px;' onclick='stopSymuluj()' class='przycisk'>Zatrzymaj symulację</span>";
+mPrzejsciaString = "<span id='check' class='przycisk1' onclick='kreujMacierz()' >Macierz przejścia</span>";
+rozkladString = "<span id='checkR' class='przycisk1 mleft' onclick='pokazRozklad()' >Rozkład stacjonarny</span>";
+symulujString = "<span id='symuluj' class='przycisk1 mleft' onclick='symuluj()' >Symuluj</span>";
+sSymulujString = "<span id='sSymuluj' class='przycisk1 mleft' onclick='stopSymuluj()' >Zatrzymaj symulację</span>";
 mPrzejscia = [];
 stany = ["Wolny od Covid-19", "Bezobjawowy", "Gorączka", "Duszności", "Gorączka i duszności", "Wyzdrowiały po Covid-19", "Bezobjawowy po wyzdrowieniu", "Gorączka po wyzdrowieniu", "Duszności po wyzdrowieniu", "Gorączka i duszności po wyzdrowieniu", "Martwy"];
 // 0 - Zdrowy, 1 - Bezobjawowy, 2 - Gorączka, 3 - Duszności, 4 - Gorączka i duszności, 5 - Wyzdrowiały, 6 - Bezobjawowy*, 7 - Gorączka*, 8 - Duszności*, 9 - Gorączka i duszności*, 10 - Martwy
