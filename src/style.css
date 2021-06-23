@@ -118,7 +118,7 @@ input[type=number] {
 }
 #przyciski{
     margin-top:5px;
-    margin-bottom:12px;
+    margin-bottom:20px;
     width:100%;
     position:relative;
     float:left;
@@ -217,5 +217,5 @@ input[type=number] {
     margin-bottom:10px;
 }
 .input-holder > label{
-    font-size:20px;
+    font-size:25px;
 }
