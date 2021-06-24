@@ -1,3 +1,7 @@
+window.onload = function (){
+	document.getElementById("val1").innerHTML = lang[currLang]["log"]["val1"];
+}
+
 setTimeout(function(){
 	document.body.style.opacity=1;
 	document.body.style.marginTop=0;
@@ -53,8 +57,8 @@ function check(zdanie){
 		if(wartosci[i]!=wartosci[i+1]){ y=false; break}
 	}
 	tab.innerHTML="";
-	if(y&&wartosci[0])tab.innerHTML="<p style='cursor:default;text-align:center; margin:0; margin-bottom:10px; font-size:40px'>Zdanie jest tautologią</p>";
-	if(y&&!wartosci[0])tab.innerHTML="<p style='cursor:default;text-align:center; margin:0; margin-bottom:10px; font-size:40px'>Zdanie jest kontrtautologią</p>";
+	if(y&&wartosci[0])tab.innerHTML="<p style='cursor:default;text-align:center; margin:0; margin-bottom:10px; font-size:40px'>"+lang[currLang]["log"]["val2"]+"</p>";
+	if(y&&!wartosci[0])tab.innerHTML="<p style='cursor:default;text-align:center; margin:0; margin-bottom:10px; font-size:40px'>"+lang[currLang]["log"]["val3"]+"</p>";
 	if(document.getElementById("tab").querySelector('p'))document.getElementById("tab").querySelector('p').style.fontFamily="'Amatic SC', sans-serif";
 	
 	if(typeof x == "string"){

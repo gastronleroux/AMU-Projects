@@ -1,3 +1,10 @@
+window.onload = function (){
+	for(let i = 1; i <=5; i++){
+		document.getElementById("val"+i).innerHTML = lang[currLang]["ana"]["val"+i];
+	}
+	document.getElementById("p_od").placeholder = lang[currLang]["ana"]["val6"];
+	document.getElementById("p_do").placeholder = lang[currLang]["ana"]["val7"];
+}
 setTimeout(function(){
 	document.body.style.opacity=1;
 	document.body.style.marginTop=0;
@@ -22,7 +29,7 @@ function check(funkcja, p_od, p_do, eps){
 		pofunk = [parseFloat(eval(fun.replace(/x/g,p_od))), parseFloat(eval(fun.replace(/x/g,p_do)))];
 		
 		if(pofunk[0]*pofunk[1]>=0){
-			tab.innerHTML="<p style='cursor:default;text-align:center; margin:0; margin-bottom:10px; font-size:25px'>Przedział uniemożliwa znalezienie miejsca zerowego</p>";
+			tab.innerHTML="<p class='big-title smaller'>"+lang[currLang]["ana"]["val8"]+"</p>";
 		}else{
 			while(Math.abs(przedfunk[0]-przedfunk[1])/2>eps){
 				nowy_przedzial = parseFloat((przedfunk[0]+przedfunk[1])/2);
@@ -45,10 +52,10 @@ function check(funkcja, p_od, p_do, eps){
 				}
 			}
 			delta = parseFloat((przedfunk[0]+przedfunk[1])/2);
-			tab.innerHTML="<p style='cursor:default;text-align:center; margin:0; margin-bottom:10px; font-size:25px'>Miejsce zerowe funkcji w przybliżeniu wynosi d = "+delta+" </p>";		
+			tab.innerHTML="<p class='big-title smaller'>"+lang[currLang]["ana"]["val9"]+" d = "+delta+" </p>";		
 		}
 	}catch{
-		tab.innerHTML="<p style='cursor:default;text-align:center; margin:0; margin-bottom:10px; font-size:25px'>Funkcja jest niepoprawna</p>";
+		tab.innerHTML="<p class='big-title smaller'>"+lang[currLang]["ana"]["val10"]+"</p>";
 	}
 	
 	setTimeout(function(){ tab.style.transition="opacity 1s"; tab.style.opacity=1; }, 20);

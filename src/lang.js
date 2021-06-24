@@ -32,10 +32,21 @@ var lang = {
             val25: "Tydzień",
         },
         log: {
-    
+            val1: "Sprawdź, czy twoje zdanie jest tautologią",
+            val2: "Zdanie jest tautologią",
+            val3: "Zdanie jest kontrtautologią",
         },
         ana: {
-    
+            val1: "Własność Darboux",
+            val2: "Wprowadź funkcję",
+            val3: "Obsługiwane funkcje: pow(baza,potęga), sin(x), cos(x), log(x), abs(x)",
+            val4: "Wprowadź przedział",
+            val5: "Wprowadź dokładność",
+            val6: "od",
+            val7: "do",
+            val8: "Przedział uniemożliwa znalezienie miejsca zerowego",
+            val9: "Miejsce zerowe funkcji w przybliżeniu wynosi",
+            val10: "Funkcja jest niepoprawna",
         }
     },
     en: {
@@ -67,10 +78,21 @@ var lang = {
             val25: "Week",
         },
         log: {
-    
+            val1: "Check if your formula is a tautology",
+            val2: "The formula is a tautology",
+            val3: "The formula is a countertautology",
         },
         ana: {
-    
+            val1: "Darboux's principle",
+            val2: "Input a function",
+            val3: "Supported functions: pow(base, power), sin(x), cos(x), log(x), abs(x)",
+            val4: "Input the range",
+            val5: "Input the precision",
+            val6: "from",
+            val7: "to",
+            val8: "The interval makes it impossible to find the zero of the function",
+            val9: "Approximately the zero of the function equals",
+            val10: "The function is invalid",
         }
     }
 }
