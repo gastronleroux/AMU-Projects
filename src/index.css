@@ -4,6 +4,8 @@ body{
     height: 100%;
     background-color:#f0eeef;
     display: flex;
+    color: #958386; 
+    font-family: 'Amatic SC', sans-serif; 
 }
 #wrp{
     background-image: url("../img/wrp.png");
@@ -14,13 +16,21 @@ body{
 #log{
     background-image: url("../img/log.png");
 }
+#emp{
+    font-size: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    outline: none;
+}
 .page{
     width: 150px;
     height: 100%;
     background-position: center;
     opacity: 0.4;
     outline: 2px solid #cfc7c9;
-    transition: width 1.5s, opacity 1.5s;
+    transition: width 2s, opacity 2s;
 }
 .page:hover{
     opacity: 0.9;
