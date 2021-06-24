@@ -26,6 +26,12 @@ stany = Array.apply(null, new Array(11)).map((el, i) => lang[currLang]["wrp"]["v
 
 
 function kreujMacierz(){
+	if (!wiek.checkValidity()) {
+		nazwaStanu.innerHTML = lang[currLang]["wrp"]["val26"];
+		daneStanu.innerHTML = "";
+		przyciski.innerHTML = mPrzejsciaString
+		return;
+	}
 	let pMartwy = 0.001 + 0.07*(1-(Math.log(110-parseInt(wiek.value)+0.001)/Math.log(110)));
 	let mnoznik = 1;
 	if(choroby.checked){

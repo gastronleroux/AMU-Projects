@@ -30,6 +30,7 @@ var lang = {
             val23: "Z macierzy przejścia (Π) możemy zauważyć, że z dowolnego stanu istnieje prawdopodobieństwo przejścia do stanu 'Martwy', przy czym stan 'Martwy' jako jedyny odwołuje się jedynie do samego siebie. Tym samym wnioskujemy, że rozkład stacjonarny ma postać (0,0,0,0,0,0,0,0,0,0,1). Dowód",
             val24: "Jako ciekawostka, w tle zostało przeprowadzonych 1 000 symulacji błądzenia po tym łańcuchu, każdy przez 1 000 kroków (1 000 tygodni), tak wygląda rozkład prawdopodobieństwa na podstawie końcowych stanów symulacji",
             val25: "Tydzień",
+            val26: "Podano niepoprawny wiek"
         },
         log: {
             val1: "Sprawdź, czy twoje zdanie jest tautologią",
@@ -76,6 +77,7 @@ var lang = {
             val23: "From the transition matrix (Π) we can see that from any state there is a probability of transition to the 'Dead' state, with the 'Dead' state as the only one referring only to itself. Thus, we conclude that the stationary distribution has the form (0,0,0,0,0,0,0,0,0,1). Proof",
             val24: "In the background, 1,000 simulations have been run along this chain, each for 1,000 steps (1,000 weeks), and this is the probability distribution based on the final states of the simulations",
             val25: "Week",
+            val26: "Wrong age input"
         },
         log: {
             val1: "Check if your formula is a tautology",
