@@ -7,7 +7,7 @@ body{
     background-color:#f0eeef;
     color: #958386; 
     text-decoration: none; 
-    font-family: 'Amatic SC', sans-serif; 
+    font-family: 'Amatic SC', cursive; 
     cursor: default;
     position: relative;
     transition: opacity 2s, margin 2s;
