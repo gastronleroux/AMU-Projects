@@ -1,0 +1,27 @@
+body{
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    background-color:#f0eeef;
+    display: flex;
+}
+#wrp{
+    background-image: url("../img/wrp.png");
+}
+#ana{
+    background-image: url("../img/ana.png");
+}
+#log{
+    background-image: url("../img/log.png");
+}
+.page{
+    width: 150px;
+    height: 100%;
+    background-position: center;
+    flex-grow: 1;
+    opacity: 0.4;
+    transition: width 1.5s, opacity 1.5s;
+}
+.page:hover{
+    opacity: 0.8;
+}
