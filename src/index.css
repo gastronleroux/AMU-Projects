@@ -21,8 +21,10 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 1;
     outline: none;
+    overflow: hidden;
+    text-align:center;
+    white-space: nowrap;
 }
 .page{
     width: 150px;

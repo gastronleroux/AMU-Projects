@@ -9,6 +9,5 @@ function changeMaxWidth(intoNone, intoInt, n = 150){
         for (let i = 0; i < intoInt.length; i++){
             document.getElementById(intoInt[i]).style.width = n;
         }
-        document.getElementById("emp").innerHTML = '';
     }
 }
