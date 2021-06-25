@@ -19,4 +19,4 @@ The app allows you to simulate a random walk in a Markov Chain based on Covid-19
 2. Darboux's principle  
 The app finds the zero of a given function in a given range based on the Darboux property: A continuous function on the interval [a, b] and such that f(a) < 0 and f(b) > 0 has a root in the interval (a, b).
 3. Analysing formulas in terms of tautology  
-The app allows creating a truth table out of a given formula in search for a tautology. More about tautology [here](https://en.wikipedia.org/wiki/Tautology_(logic))
+The app allows creating a truth table out of a given formula in search for a tautology. [More about tautology](https://en.wikipedia.org/wiki/Tautology_(logic))
